@@ -1,0 +1,10 @@
+
+#color {
+    color: #000000;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgb(97, 4, 4);
+}
+
+::-webkit-textfield-decoration-container {
+    padding: 0.5em;
+}

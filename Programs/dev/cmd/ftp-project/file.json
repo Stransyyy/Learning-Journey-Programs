@@ -1,0 +1,29 @@
+{
+    "User":"fake",
+    "Password":"fake123",
+    "Server":"8.8.8.8",
+    "Port": 21,
+    "Protocol":"FTP",
+    "filesToUpload": [
+        {
+            "localPath": "C:\\Users\\Administrator\\Desktop\\test\\test.txt",
+            "remotePath": "/test/test.txt",
+            "deleteLocalFileAfterUpload": false
+        },
+        {
+            "localPath": "C:\\Users\\Administrator\\Desktop\\test\\test2.txt",
+            "remotePath": "/test/test2.txt",
+            "deleteLocalFileAfterUpload": false
+        }],
+    "filesToDownload": [
+        {
+            "localPath": "C:\\Users\\Administrator\\Desktop\\test\\test3.txt",
+            "remotePath": "/test/test3.txt",
+            "deleteRemoteFileAfterDownload": false
+        },
+        {
+            "localPath": "C:\\Users\\Administrator\\Desktop\\test\\test4.txt",
+            "remotePath": "/test/test4.txt",
+            "deleteRemoteFileAfterDownload": true
+        }]
+}
