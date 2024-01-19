@@ -25,24 +25,33 @@ func userNewGame() (Games, error) {
 	fmt.Scanln(&game.Price)
 
 	// Add your validation logic here
-	if game.Name == "" || game.Year <= 0 || game.Rating == "" || game.Price <= 0 {
-		return game, ErrorGame()
+	if game.Name == "" {
+		return game, errors.New("Name cannot be empty")
+	}
+	if game.Year <= 0 {
+		return game, errors.New("Invalid year")
+	}
+	if game.Rating == "" {
+		return game, errors.New("Rating cannot be empty")
+	}
+	if game.Price <= 0 {
+		return game, errors.New("Invalid price")
 	}
 
 	return game, nil
 }
 
 func main() {
-	game, err := userNewGame()
+	game, err := collectGameInfo()
 
 	if err != nil {
-		fmt.Printf("%s: Enter valid inputs\n", ErrorGame())
+		fmt.Printf("Error collecting game information: %v\n", err)
 		return
 	}
 
-	err = AddItem(game)
+	err = AddNewGame(game)
 	if err != nil {
-		fmt.Printf("%s: Failed to add game\n", ErrorGame())
+		fmt.Printf("Failed to add game: %v\n", err)
 		return
 	}
 
