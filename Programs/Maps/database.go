@@ -18,21 +18,17 @@ const (
 )
 
 type Games struct {
-	PK     string  `dynamo:"PK`
-	SK     string  `dynamo:"SK"`
+	PK     string
+	SK     string
 	Name   string  // "Super Mario Bros", "Legend of Zelda", etc.
 	Year   int     // 1998, 2001, etc.
 	Rating string  // E, T, M, etc.
 	Price  float64 // 59.99, 49.99, etc.
 }
 
-func getTable() string {
-	return os.Getenv("TABLE_NAME")
-}
-
 func newSess() (*session.Session, error) {
 	return session.NewSession(&aws.Config{
-		Region: aws.String(os.Getenv("AWS_REGION")),
+		Region: aws.String("us-east-2"),
 	})
 }
 
@@ -105,34 +101,30 @@ func collectGameInfo() (Games, error) {
 	return game, nil
 }
 
-func AddNewGame(game Games) error {
+func AddNewGame(Name string, Year int, Rating string, Price float64) error {
 	sess, err := newSess()
 	if err != nil {
 		return err
 	}
 
-	TABLE := getTable()
-
 	db := dynamo.New(sess)
-	table := db.Table(TABLE)
+	table := db.Table("Maps-Example")
 
 	randID := generateRandomID()
 
-	pk := fmt.Sprintf("%s:NewGame", randID)
+	PK := fmt.Sprintf("%s:NewGame", randID)
 
 	newGame := Games{
-		PK:     pk,
+		PK:     PK,
 		SK:     NewGame,
-		Name:   game.Name,
-		Year:   game.Year,
-		Rating: game.Rating,
-		Price:  game.Price,
+		Name:   Name,
+		Year:   Year,
+		Rating: Rating,
+		Price:  Price,
 	}
 
-	perr := table.Put(&newGame).Run()
-
-	if perr != nil {
-		return fmt.Errorf("failed to add game: %v into the database", perr)
+	if err := table.Put(&newGame).Run(); err != nil {
+		return fmt.Errorf("failed to add game: %v into the database", err)
 	}
 
 	return nil

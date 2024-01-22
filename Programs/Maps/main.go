@@ -49,11 +49,11 @@ func main() {
 		return
 	}
 
-	err = AddNewGame(game)
+	err = AddNewGame(game.Name, game.Year, game.Rating, game.Price)
 	if err != nil {
 		fmt.Printf("Failed to add game: %v\n", err)
 		return
 	}
 
-	fmt.Println("Game added:", game)
+	fmt.Println("Game added:", game.Name)
 }
