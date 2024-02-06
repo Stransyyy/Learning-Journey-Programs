@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+
+)
 
 // Toy is a struct representing a toy
 type Toy struct {
@@ -40,8 +44,10 @@ func main() {
 
 	// Play with the toy using the interface
 	playWithToy(actionFigure)
-}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+}
 // Function to play with a toy using the Playable interface
 func playWithToy(p Playable) {
 	p.Play()
