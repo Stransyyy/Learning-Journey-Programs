@@ -4,6 +4,7 @@ go 1.21.1
 
 require (
 	github.com/aws/aws-sdk-go v1.49.24
+	github.com/google/uuid v1.6.0
 	github.com/guregu/dynamo v1.21.0
 )
 

@@ -1,0 +1,9 @@
+go 1.21.6
+
+use (
+	.
+	./Programs/dev
+	./Programs/dynamo-learn
+	./Programs/pull-request-test/work
+	./Programs/struct-test
+)
