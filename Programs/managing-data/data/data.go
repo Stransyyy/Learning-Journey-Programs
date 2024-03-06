@@ -1,6 +1,7 @@
 package data
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -17,16 +18,29 @@ type Languages struct {
 	Name string `json:"name"`
 }
 
-func get() (string, error) {
-	response, err := http.Get("https://restcountries.eu/rest/v2/all")
+type Data interface {
+	GetName() (string, error)
+
+	GetFlag() (string, error)
+
+	GetLanguages() ([]Languages, error)
+
+	GetPopulation() (int, error)
+}
+
+func (d *Data) GetName() ([]Country, error) {
+	response, err := http.Get("https://restcountries.eu/rest/v2/name")
 	if err != nil {
-		return "", fmt.Errorf("Error fetching data from %s: %v", response.Request.URL, err)
+		return nil, fmt.Errorf("Error fetching data from %s: %v", response.Request.URL, err)
 	}
 
 	responseData, err := io.ReadAll(response.Body)
 	if err != nil {
-		return "", fmt.Errorf("Error reading response data: %v", err)
+		return nil, fmt.Errorf("Error reading response data: %v", err)
 	}
 
-	return string(responseData), nil
+	var data Country
+
+	err = json.Unmarshal(responseData, &data)
+
 }
